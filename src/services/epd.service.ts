@@ -1,4 +1,4 @@
-import { EPDWrapper } from "./epd-wrapper";
+import { EPDWrapper } from "epd-wrapper";
 
 class EPDService {
   private epd: EPDWrapper;
@@ -10,7 +10,6 @@ class EPDService {
   async initialize(): Promise<void> {
     try {
       await this.epd.start();
-      await this.epd.init();
       console.log("E-Ink Display Service initialized successfully.");
     } catch (error) {
       console.error("Failed to initialize E-Ink Display Service:", error);
@@ -21,7 +20,10 @@ class EPDService {
   }
 
   async clear(): Promise<void> {
-    return this.epd.clear();
+    await this.epd.init();
+    await this.epd.clear();
+    await this.epd.sleep();
+    console.log("E-Ink display cleared.");
   }
 
   async displayImage(imageUrl: string): Promise<void> {
@@ -34,9 +36,8 @@ class EPDService {
     const imageBuffer = Buffer.from(arrayBuffer);
 
     console.log("Image downloaded, preparing to display.");
-    await this.epd.clear();
+    await this.epd.init();
     await this.epd.displayBuffer(imageBuffer);
-    console.log("Displaying image for 10 seconds...");
     await new Promise((resolve) => setTimeout(resolve, 10000));
     await this.epd.sleep();
     console.log("Image display process complete.");

@@ -71,8 +71,8 @@ The server exposes the following endpoints:
     }
     ```
 -   **Success Response:**
-    -   **Code:** 200 OK
-    -   **Content:** `Image URL received: https://example.com/path/to/your/image.png`
+    -   **Code:** 202 Accepted
+    -   **Content:** `Accepted: Image display process initiated.`
 -   **Error Response:**
     -   **Code:** 400 Bad Request
     -   **Content:** `Image URL is required.`
@@ -94,7 +94,7 @@ The server exposes the following endpoints:
     -   `reboot`: Reboots the device.
 -   **Success Response:**
     -   **Code:** 200 OK
-    -   **Content:** `Command "<command-name>" executed.`
+    -   **Content:** `Command "<command-name>" initiated.`
 -   **Error Response:**
     -   **Code:** 400 Bad Request
     -   **Content:** `Command is required.` or `Unknown command: <command-name>`
