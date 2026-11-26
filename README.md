@@ -46,6 +46,30 @@ npm start
 
 The server will be available at `http://localhost:3000`.
 
+## Configuration
+
+| Variable | Values | Default | Effect |
+| --- | --- | --- | --- |
+| `EPD_ROTATE` | `0`, `180` | `0` | `180` turns every image upside down, for a panel mounted the other way round. Any other value stops the server at startup with `EPD_ROTATE must be 0 or 180`. |
+
+The image size and `EPD_ROTATE` together give the four ways to mount the panel. See the [orientation table in the epd-wrapper README](https://github.com/Anb98/epd-wrapper#orientation).
+
+```bash
+EPD_ROTATE=180 npm start
+```
+
+When the server runs as a systemd service, add the variable to the `[Service]` section of the unit, then reload and restart it:
+
+```ini
+[Service]
+Environment=EPD_ROTATE=180
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart <service-name>
+```
+
 ## API Endpoints
 
 The server exposes the following endpoints:

@@ -4,7 +4,9 @@ class EPDService {
   private epd: EPDWrapper;
 
   constructor() {
-    this.epd = new EPDWrapper();
+    const rotate = Number(process.env.EPD_ROTATE ?? 0);
+    if (rotate !== 0 && rotate !== 180) throw new Error("EPD_ROTATE must be 0 or 180");
+    this.epd = new EPDWrapper({ rotate });
   }
 
   async initialize(): Promise<void> {
